@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosso Tempo Juntos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .photos {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .photos img {
+      width: 100%;
+      max-width: 130px; /* Limite de tamanho das imagens */
+      height: auto;
+      margin: 10px;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff4b3a;
+    }
+
+    .time {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      color: #ff6f61;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Nosso Tempo Juntos</h1>
+    
+    <button onclick="showTime()">Clique Aqui para Ver o Tempo</button>
+    
+    <div id="time" class="time"></div>
+    
+    <div class="photos" id="photo-container">
+      <!-- As imagens serão alteradas dinamicamente aqui -->
+      <img src="img/foto1.jpeg" alt="Foto 1">
+      <img src="img/IMG_20241124_150058_233.webp" alt="Foto 2">
+      <img src="img/IMG_20250304_220314.jpg" alt="Foto 3">
+    </div>
+    
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    // Data de início
+    const startDate = new Date('2024-07-01');
+
+    // Lista de imagens
+    const images = [
+      'foto1.jpeg', 'foto2.webp', 'foto6.webp', 'foto4.webp'
+    ];
+
+    function showTime() {
+      // Calcular o tempo desde 01/07/2024
+      const now = new Date();
+      const diff = now - startDate;
+
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+      const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+      const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+
+      // Exibir o tempo no formato
+      document.getElementById('time').innerText = `Estamos juntos há ${years} anos, ${months} meses e ${days} dias.`;
+
+      // Exibir uma frase bonita
+      const messages = [
+        "A cada dia, me apaixono mais por você.",
+        "Juntos, somos mais fortes e felizes!",
+        "O melhor lugar do mundo é ao seu lado.",
+        "Você é a razão do meu sorriso diário.",
+      ];
+
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      document.getElementById('message').innerText = randomMessage;
+
+      // Atualizar as imagens aleatoriamente
+      updateImages();
+    }
+
+    // Função para atualizar as imagens aleatoriamente
+    function updateImages() {
+      const photoContainer = document.getElementById('photo-container');
+      
+      // Selecionar 3 imagens aleatórias da lista
+      const randomImages = [];
+      while (randomImages.length < 3) {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const randomImage = images[randomIndex];
+
+        if (!randomImages.includes(randomImage)) {
+          randomImages.push(randomImage);
+        }
+      }
+
+      // Alterar as imagens do container com as imagens aleatórias
+      const imageElements = photoContainer.querySelectorAll('img');
+      imageElements.forEach((img, index) => {
+        img.src = randomImages[index];
+      });
+    }
+  </script>
+</body>
+</html>
